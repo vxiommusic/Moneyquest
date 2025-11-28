@@ -3,11 +3,12 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Swords } from 'lucide-react';
+import { Swords, LayoutDashboard } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navItems = [
     { href: '/quest', label: 'Квест', icon: Swords },
+    { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
 ];
 
 export function Header() {
