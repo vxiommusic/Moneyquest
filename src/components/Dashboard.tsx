@@ -4,12 +4,12 @@ import React, { useState, useEffect, useCallback } from 'react';
 import type { User, Task, Reward, FloatingText } from '@/lib/types';
 import { initialUser, initialTasks, initialRewards } from '@/lib/data';
 import useLocalStorage from '@/hooks/use-local-storage';
-import { TaskList } from './TaskList';
 import { MotivationalPopup } from './MotivationalPopup';
 import { getMotivationalMessage } from '@/app/actions';
 import { isThisWeek, isThisMonth, parseISO } from 'date-fns';
 import { ClientCharacterCard } from './ClientCharacterCard';
 import { ClientRewardsSection } from './ClientRewardsSection';
+import { ClientTaskList } from './ClientTaskList';
 
 export function Dashboard() {
   const [user, setUser] = useLocalStorage<User>('questify-user', initialUser);
@@ -158,7 +158,7 @@ export function Dashboard() {
         </aside>
 
         <section className="lg:col-span-2">
-          <TaskList
+           <ClientTaskList
             tasks={tasks}
             onCompleteTask={handleCompleteTask}
             onAddTask={handleAddTask}
