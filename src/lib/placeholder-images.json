@@ -1,3 +1,10 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "user-avatar",
+      "description": "User avatar for character card",
+      "imageUrl": "https://images.unsplash.com/photo-1760907217014-47ae8fcaf770?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxmYW50YXN5JTIwY2hhcmFjdGVyfGVufDB8fHx8MTc2NDMzMTgzN3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "fantasy character"
+    }
+  ]
 }
