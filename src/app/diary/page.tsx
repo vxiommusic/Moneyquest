@@ -1,7 +1,26 @@
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { TradeForm } from '@/components/TradeForm';
+import { TradeHistoryTable } from '@/components/TradeHistoryTable';
+import type { Trade } from '@/lib/types';
+import useLocalStorage from '@/hooks/use-local-storage';
 
 export default function DiaryPage() {
+  const [trades, setTrades] = useLocalStorage<Trade[]>('moneyquest-trades', []);
+
+  const addTrade = (tradeData: Omit<Trade, 'id'>) => {
+    const newTrade: Trade = {
+      ...tradeData,
+      id: Date.now().toString(),
+    };
+    setTrades(prevTrades => [newTrade, ...prevTrades]);
+  };
+    
+  const deleteTrade = (tradeId: string) => {
+    setTrades(prevTrades => prevTrades.filter(trade => trade.id !== tradeId));
+  };
+
   return (
     <div className="w-full max-w-7xl mx-auto">
       <header className="mb-6">
@@ -14,7 +33,7 @@ export default function DiaryPage() {
             <CardTitle>Информация о сделке</CardTitle>
           </CardHeader>
           <CardContent>
-            <TradeForm />
+            <TradeForm onSaveTrade={addTrade} />
           </CardContent>
         </Card>
         <Card>
@@ -22,7 +41,11 @@ export default function DiaryPage() {
             <CardTitle>История сделок</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>Здесь будет отображаться история ваших сделок.</p>
+            {trades.length > 0 ? (
+                <TradeHistoryTable trades={trades} onDeleteTrade={deleteTrade} />
+            ) : (
+                <p>Здесь будет отображаться история ваших сделок.</p>
+            )}
           </CardContent>
         </Card>
       </div>

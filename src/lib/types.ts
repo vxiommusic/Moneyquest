@@ -36,3 +36,15 @@ export type FloatingText = {
   left: number;
   top: number;
 };
+
+export type Trade = {
+  id: string;
+  date: Date;
+  instrument: string;
+  positionType: "long" | "short";
+  volume: number;
+  entryPoint: number;
+  exitPoint: number;
+  result: number;
+  screenshot?: string;
+};

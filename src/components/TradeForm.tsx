@@ -6,6 +6,7 @@ import * as z from "zod";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
 import React, { useState } from "react";
+import type { Trade } from "@/lib/types";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -31,6 +32,7 @@ import {
 } from "@/components/ui/radio-group";
 import { Calendar as CalendarIcon, Upload, FileCheck2, X } from "lucide-react";
 import { CircularProgress } from "./ui/circular-progress";
+import { useToast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
   date: z.date({
@@ -46,22 +48,42 @@ const formSchema = z.object({
   screenshot: z.any().optional(),
 });
 
-export function TradeForm() {
+type TradeFormValues = z.infer<typeof formSchema>;
+
+interface TradeFormProps {
+  onSaveTrade: (tradeData: Omit<Trade, 'id'>) => void;
+}
+
+
+const toBase64 = (file: File): Promise<string> => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = error => reject(error);
+});
+
+
+export function TradeForm({ onSaveTrade }: TradeFormProps) {
+  const { toast } = useToast();
   const [uploadProgress, setUploadProgress] = useState<number | null>(null);
   const [fileName, setFileName] = useState<string | null>(null);
   const fileInputRef = React.useRef<HTMLInputElement>(null);
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const defaultValues: Partial<TradeFormValues> = {
+    instrument: "",
+    volume: NaN,
+    entryPoint: NaN,
+    exitPoint: NaN,
+    date: new Date(),
+    positionType: "long"
+  };
+
+  const form = useForm<TradeFormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      instrument: "",
-      volume: NaN,
-      entryPoint: NaN,
-      exitPoint: NaN,
-    },
+    defaultValues,
   });
 
-  const { watch, setValue } = form;
+  const { watch, setValue, reset } = form;
   const { positionType, entryPoint, exitPoint, volume } = watch();
 
   const calculateResult = () => {
@@ -81,6 +103,15 @@ export function TradeForm() {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      if (file.size > 2 * 1024 * 1024) { // 2MB limit
+        toast({
+          variant: "destructive",
+          title: "Файл слишком большой",
+          description: "Максимальный размер скриншота 2MB.",
+        });
+        return;
+      }
+      
       setValue('screenshot', file);
       setFileName(file.name);
       setUploadProgress(0);
@@ -98,7 +129,7 @@ export function TradeForm() {
           }
           return prev + 10;
         });
-      }, 200);
+      }, 50);
     }
   };
 
@@ -111,8 +142,23 @@ export function TradeForm() {
     }
   };
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log({ ...values, result });
+  async function onSubmit(values: TradeFormValues) {
+    const result = calculateResult();
+    let screenshotBase64: string | undefined = undefined;
+
+    if (values.screenshot instanceof File) {
+        screenshotBase64 = await toBase64(values.screenshot);
+    }
+
+    onSaveTrade({ ...values, result, screenshot: screenshotBase64 });
+    
+    toast({
+      title: "Сделка сохранена!",
+      description: `Сделка по ${values.instrument} добавлена в вашу историю.`,
+    });
+    
+    reset(defaultValues);
+    handleRemoveFile();
   }
 
   return (
@@ -214,7 +260,7 @@ export function TradeForm() {
               <FormItem>
                 <FormLabel>Объём Позиции</FormLabel>
                 <FormControl>
-                  <Input type="number" placeholder="0.00" {...field} value={Number.isNaN(field.value) ? '' : field.value} />
+                  <Input type="number" placeholder="0.00" {...field} value={Number.isNaN(field.value) ? '' : field.value} onChange={(e) => field.onChange(parseFloat(e.target.value))} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -228,7 +274,7 @@ export function TradeForm() {
               <FormItem>
                 <FormLabel>Точка входа</FormLabel>
                 <FormControl>
-                  <Input type="number" placeholder="0.00" {...field} value={Number.isNaN(field.value) ? '' : field.value} />
+                  <Input type="number" placeholder="0.00" {...field} value={Number.isNaN(field.value) ? '' : field.value} onChange={(e) => field.onChange(parseFloat(e.target.value))} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -242,7 +288,7 @@ export function TradeForm() {
               <FormItem>
                 <FormLabel>Точка выхода</FormLabel>
                 <FormControl>
-                  <Input type="number" placeholder="0.00" {...field} value={Number.isNaN(field.value) ? '' : field.value} />
+                  <Input type="number" placeholder="0.00" {...field} value={Number.isNaN(field.value) ? '' : field.value} onChange={(e) => field.onChange(parseFloat(e.target.value))} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
