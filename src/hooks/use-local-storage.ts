@@ -17,7 +17,7 @@ function useLocalStorage<T>(key: string, initialValue: T): [T, React.Dispatch<Re
     }
   }, [initialValue, key]);
 
-  const [storedValue, setStoredValue] = useState<T>(readValue);
+  const [storedValue, setStoredValue] = useState<T>(initialValue);
 
   useEffect(() => {
     setStoredValue(readValue());

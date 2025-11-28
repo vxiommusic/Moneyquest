@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from 'react';
-import type { User, Task, Reward, FloatingText } from '@/lib/types';
+import type { User, Task, Reward, FloatingText, Trade } from '@/lib/types';
 import { initialUser, initialTasks, initialRewards } from '@/lib/data';
 import useLocalStorage from '@/hooks/use-local-storage';
 import { MotivationalPopup } from './MotivationalPopup';
@@ -15,21 +15,12 @@ export function Dashboard() {
   const [user, setUser] = useLocalStorage<User>('moneyquest-user', initialUser);
   const [tasks, setTasks] = useLocalStorage<Task[]>('moneyquest-tasks', initialTasks);
   const [rewards, setRewards] = useLocalStorage<Reward[]>('moneyquest-rewards', initialRewards);
+  const [trades] = useLocalStorage<Trade[]>('moneyquest-trades', []);
   const [lastReset, setLastReset] = useLocalStorage<{ daily: string, weekly: string, monthly: string }>('moneyquest-last-reset', { daily: '', weekly: '', monthly: '' });
-  const [hasBeenReset, setHasBeenReset] = useLocalStorage('moneyquest-has-reset-v10', false);
 
   const [motivationalMessage, setMotivationalMessage] = useState('');
   const [floatingTexts, setFloatingTexts] = useState<FloatingText[]>([]);
-
-  useEffect(() => {
-    if (!hasBeenReset) {
-      setUser(initialUser);
-      setTasks(initialTasks);
-      setRewards(initialRewards);
-      setHasBeenReset(true);
-    }
-  }, [hasBeenReset, setHasBeenReset, setUser, setTasks, setRewards]);
-
+  
   const addFloatingText = (value: string, color: string) => {
     setFloatingTexts(prev => [...prev, { id: Date.now(), value, color, left: 50, top: 50 }]);
   };
