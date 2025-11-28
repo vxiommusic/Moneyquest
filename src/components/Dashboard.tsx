@@ -9,7 +9,6 @@ import { getMotivationalMessage } from '@/app/actions';
 import { isThisWeek, isThisMonth, parseISO } from 'date-fns';
 import { ClientCharacterCard } from './ClientCharacterCard';
 import { ClientRewardsSection } from './ClientRewardsSection';
-import { ClientTaskList } from './ClientTaskList';
 import { BattleChecklist } from './BattleChecklist';
 
 export function Dashboard() {
@@ -194,11 +193,7 @@ export function Dashboard() {
         </aside>
 
         <section className="lg:col-span-2">
-           <ClientTaskList
-            tasks={tasks}
-            onCompleteTask={handleCompleteTask}
-            onAddTask={handleAddTask}
-          />
+          
         </section>
       </div>
       
