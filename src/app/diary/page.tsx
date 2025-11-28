@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { TradeForm } from '@/components/TradeForm';
 
 export default function DiaryPage() {
   return (
@@ -13,7 +14,7 @@ export default function DiaryPage() {
             <CardTitle>Информация о сделке</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>Здесь будет форма для ввода информации о сделке.</p>
+            <TradeForm />
           </CardContent>
         </Card>
         <Card>
