@@ -80,15 +80,6 @@ export const initialTasks: Task[] = [
 export const initialRewards: Reward[] = [
   {
     id: 'reward-daily-1',
-    title: 'Ежедневный вход',
-    description: 'Войдите и получите свою ежедневную награду.',
-    type: 'daily',
-    xp: 10,
-    claimed: false,
-    claimable: true
-  },
-  {
-    id: 'reward-daily-2',
     title: '3 сделки без нарушений',
     description: 'МИНИ-КВЕСТЫ НА ДЕНЬ',
     type: 'daily',
@@ -97,7 +88,7 @@ export const initialRewards: Reward[] = [
     claimable: true
   },
   {
-    id: 'reward-daily-3',
+    id: 'reward-daily-2',
     title: 'День без эмоциональных входов',
     description: 'МИНИ-КВЕСТЫ НА ДЕНЬ',
     type: 'daily',
@@ -106,7 +97,7 @@ export const initialRewards: Reward[] = [
     claimable: true
   },
   {
-    id: 'reward-daily-4',
+    id: 'reward-daily-3',
     title: 'Идеальный план сделки',
     description: 'МИНИ-КВЕСТЫ НА ДЕНЬ',
     type: 'daily',
@@ -115,7 +106,7 @@ export const initialRewards: Reward[] = [
     claimable: true
   },
   {
-    id: 'reward-daily-5',
+    id: 'reward-daily-4',
     title: 'Анализ ошибок вечером',
     description: 'МИНИ-КВЕСТЫ НА ДЕНЬ',
     type: 'daily',
