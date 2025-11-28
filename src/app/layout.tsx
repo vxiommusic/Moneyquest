@@ -3,7 +3,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
-  title: 'Квестифай',
+  title: 'MoneyQuest',
   description: 'Геймифицируйте свою жизнь и побеждайте свои задачи.',
 };
 

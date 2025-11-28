@@ -16,7 +16,7 @@ export function Dashboard() {
   const [tasks, setTasks] = useLocalStorage<Task[]>('questify-tasks', initialTasks);
   const [rewards, setRewards] = useLocalStorage<Reward[]>('questify-rewards', initialRewards);
   const [lastReset, setLastReset] = useLocalStorage<{ daily: string, weekly: string, monthly: string }>('questify-last-reset', { daily: '', weekly: '', monthly: '' });
-  const [hasBeenReset, setHasBeenReset] = useLocalStorage('questify-has-reset-v6', false);
+  const [hasBeenReset, setHasBeenReset] = useLocalStorage('questify-has-reset-v7', false);
 
   const [motivationalMessage, setMotivationalMessage] = useState('');
   const [floatingTexts, setFloatingTexts] = useState<FloatingText[]>([]);
@@ -181,7 +181,7 @@ export function Dashboard() {
   return (
     <div className="w-full max-w-7xl mx-auto">
       <header className="mb-6">
-        <h1 className="text-4xl font-bold text-primary tracking-tighter">Квестифай</h1>
+        <h1 className="text-4xl font-bold text-primary tracking-tighter">MoneyQuest</h1>
         <p className="text-muted-foreground">Ваше эпическое путешествие к продуктивности начинается сейчас!</p>
       </header>
 
