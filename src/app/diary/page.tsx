@@ -5,9 +5,15 @@ import { TradeForm } from '@/components/TradeForm';
 import { TradeHistoryTable } from '@/components/TradeHistoryTable';
 import type { Trade } from '@/lib/types';
 import useLocalStorage from '@/hooks/use-local-storage';
+import { useEffect, useState } from 'react';
 
 export default function DiaryPage() {
   const [trades, setTrades] = useLocalStorage<Trade[]>('moneyquest-trades', []);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const addTrade = (tradeData: Omit<Trade, 'id'>) => {
     const newTrade: Trade = {
@@ -41,7 +47,7 @@ export default function DiaryPage() {
             <CardTitle>История сделок</CardTitle>
           </CardHeader>
           <CardContent>
-            {trades.length > 0 ? (
+            {isClient && trades.length > 0 ? (
                 <TradeHistoryTable trades={trades} onDeleteTrade={deleteTrade} />
             ) : (
                 <p>Здесь будет отображаться история ваших сделок.</p>
