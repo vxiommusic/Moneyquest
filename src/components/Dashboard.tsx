@@ -16,7 +16,7 @@ export function Dashboard() {
   const [tasks, setTasks] = useLocalStorage<Task[]>('questify-tasks', initialTasks);
   const [rewards, setRewards] = useLocalStorage<Reward[]>('questify-rewards', initialRewards);
   const [lastReset, setLastReset] = useLocalStorage<{ daily: string, weekly: string, monthly: string }>('questify-last-reset', { daily: '', weekly: '', monthly: '' });
-  const [hasBeenReset, setHasBeenReset] = useLocalStorage('questify-has-reset-v4', false);
+  const [hasBeenReset, setHasBeenReset] = useLocalStorage('questify-has-reset-v5', false);
 
   const [motivationalMessage, setMotivationalMessage] = useState('');
   const [floatingTexts, setFloatingTexts] = useState<FloatingText[]>([]);
