@@ -32,7 +32,7 @@ export const initialTasks: Task[] = [
     xp: 10,
     hpDamage: 5,
     dueDate: formatISO(today),
-    completed: true,
+    completed: false,
     type: 'daily',
   },
   {
