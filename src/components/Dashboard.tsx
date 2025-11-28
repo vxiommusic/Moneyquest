@@ -10,13 +10,14 @@ import { isThisWeek, isThisMonth, parseISO } from 'date-fns';
 import { ClientCharacterCard } from './ClientCharacterCard';
 import { ClientRewardsSection } from './ClientRewardsSection';
 import { ClientTaskList } from './ClientTaskList';
+import { BattleChecklist } from './BattleChecklist';
 
 export function Dashboard() {
   const [user, setUser] = useLocalStorage<User>('questify-user', initialUser);
   const [tasks, setTasks] = useLocalStorage<Task[]>('questify-tasks', initialTasks);
   const [rewards, setRewards] = useLocalStorage<Reward[]>('questify-rewards', initialRewards);
   const [lastReset, setLastReset] = useLocalStorage<{ daily: string, weekly: string, monthly: string }>('questify-last-reset', { daily: '', weekly: '', monthly: '' });
-  const [hasBeenReset, setHasBeenReset] = useLocalStorage('questify-has-reset-v2', false);
+  const [hasBeenReset, setHasBeenReset] = useLocalStorage('questify-has-reset-v3', false);
 
   const [motivationalMessage, setMotivationalMessage] = useState('');
   const [floatingTexts, setFloatingTexts] = useState<FloatingText[]>([]);
@@ -33,6 +34,42 @@ export function Dashboard() {
   const addFloatingText = (value: string, color: string) => {
     setFloatingTexts(prev => [...prev, { id: Date.now(), value, color, left: 50, top: 50 }]);
   };
+
+  const handleLevelUp = (currentUser: User, currentXp: number): User => {
+    const newLevel = currentUser.level + 1;
+    addFloatingText('Новый уровень!', 'text-yellow-400');
+    return {
+      ...currentUser,
+      level: newLevel,
+      xp: currentXp - currentUser.xpToNextLevel,
+      xpToNextLevel: Math.floor(currentUser.xpToNextLevel * 1.5),
+      hp: currentUser.maxHp, // Full heal on level up
+    };
+  };
+
+  const applyChecklistResult = (xp: number, hp: number) => {
+    let updatedUser = { ...user };
+    let newXp = updatedUser.xp;
+
+    if (xp > 0) {
+      addFloatingText(`+${xp} ОП`, 'text-accent');
+      newXp += xp;
+    }
+    
+    if (hp < 0) {
+      addFloatingText(`${hp} ОЗ`, 'text-red-500');
+      updatedUser.hp = Math.max(0, updatedUser.hp + hp);
+    }
+    
+    if (newXp >= updatedUser.xpToNextLevel) {
+      updatedUser = handleLevelUp(updatedUser, newXp);
+    } else {
+      updatedUser.xp = newXp;
+    }
+
+    setUser(updatedUser);
+  };
+
 
   const resetTasks = useCallback(() => {
     const today = new Date();
@@ -91,18 +128,6 @@ export function Dashboard() {
     };
     checkRewardAvailability();
   }, [tasks, setRewards]);
-
-  const handleLevelUp = (currentUser: User, currentXp: number): User => {
-    const newLevel = currentUser.level + 1;
-    addFloatingText('Новый уровень!', 'text-yellow-400');
-    return {
-      ...currentUser,
-      level: newLevel,
-      xp: currentXp - currentUser.xpToNextLevel,
-      xpToNextLevel: Math.floor(currentUser.xpToNextLevel * 1.5),
-      hp: currentUser.maxHp, // Full heal on level up
-    };
-  };
 
   const handleCompleteTask = async (taskId: string) => {
     const task = tasks.find(t => t.id === taskId);
@@ -164,6 +189,7 @@ export function Dashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <aside className="lg:col-span-1 space-y-6">
           <ClientCharacterCard user={user} floatingTexts={floatingTexts} setFloatingTexts={setFloatingTexts} />
+          <BattleChecklist onResult={applyChecklistResult} />
           <ClientRewardsSection rewards={rewards} onClaimReward={handleClaimReward} />
         </aside>
 
