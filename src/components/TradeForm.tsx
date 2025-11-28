@@ -49,6 +49,9 @@ export function TradeForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       instrument: "",
+      volume: NaN,
+      entryPoint: NaN,
+      exitPoint: NaN,
     },
   });
 
@@ -172,7 +175,7 @@ export function TradeForm() {
               <FormItem>
                 <FormLabel>Объём Позиции</FormLabel>
                 <FormControl>
-                  <Input type="number" placeholder="0.00" {...field} />
+                  <Input type="number" placeholder="0.00" {...field} value={Number.isNaN(field.value) ? '' : field.value} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -186,7 +189,7 @@ export function TradeForm() {
               <FormItem>
                 <FormLabel>Точка входа</FormLabel>
                 <FormControl>
-                  <Input type="number" placeholder="0.00" {...field} />
+                  <Input type="number" placeholder="0.00" {...field} value={Number.isNaN(field.value) ? '' : field.value} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -200,7 +203,7 @@ export function TradeForm() {
               <FormItem>
                 <FormLabel>Точка выхода</FormLabel>
                 <FormControl>
-                  <Input type="number" placeholder="0.00" {...field} />
+                  <Input type="number" placeholder="0.00" {...field} value={Number.isNaN(field.value) ? '' : field.value} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
