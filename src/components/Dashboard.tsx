@@ -16,9 +16,19 @@ export function Dashboard() {
   const [tasks, setTasks] = useLocalStorage<Task[]>('questify-tasks', initialTasks);
   const [rewards, setRewards] = useLocalStorage<Reward[]>('questify-rewards', initialRewards);
   const [lastReset, setLastReset] = useLocalStorage<{ daily: string, weekly: string, monthly: string }>('questify-last-reset', { daily: '', weekly: '', monthly: '' });
+  const [hasBeenReset, setHasBeenReset] = useLocalStorage('questify-has-reset-v2', false);
 
   const [motivationalMessage, setMotivationalMessage] = useState('');
   const [floatingTexts, setFloatingTexts] = useState<FloatingText[]>([]);
+
+  useEffect(() => {
+    if (!hasBeenReset) {
+      setUser(initialUser);
+      setTasks(initialTasks);
+      setRewards(initialRewards);
+      setHasBeenReset(true);
+    }
+  }, [hasBeenReset, setHasBeenReset, setUser, setTasks, setRewards]);
 
   const addFloatingText = (value: string, color: string) => {
     setFloatingTexts(prev => [...prev, { id: Date.now(), value, color, left: 50, top: 50 }]);
