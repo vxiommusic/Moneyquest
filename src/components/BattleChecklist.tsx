@@ -102,7 +102,7 @@ export function BattleChecklist({ onResult }: BattleChecklistProps) {
         })}
         {allAnswered && (
           <Button onClick={handleReset} variant="secondary" className="w-full mt-4">
-            Начать заново
+            Следующая сделка
           </Button>
         )}
       </CardContent>
