@@ -1,51 +1,38 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 function useLocalStorage<T>(key: string, initialValue: T): [T, React.Dispatch<React.SetStateAction<T>>] {
-  const isClient = typeof window !== 'undefined';
-
-  const [storedValue, setStoredValue] = useState<T>(() => {
-    if (!isClient) {
+  const readValue = useCallback((): T => {
+    if (typeof window === 'undefined') {
       return initialValue;
     }
+
     try {
       const item = window.localStorage.getItem(key);
-      return item ? JSON.parse(item) : initialValue;
+      return item ? (JSON.parse(item) as T) : initialValue;
     } catch (error) {
-      console.log(error);
+      console.warn(`Error reading localStorage key “${key}”:`, error);
       return initialValue;
     }
-  });
+  }, [initialValue, key]);
+
+  const [storedValue, setStoredValue] = useState<T>(readValue);
 
   useEffect(() => {
-    if (isClient) {
-      try {
-        const item = window.localStorage.getItem(key);
-        // Only set the item in localStorage if it doesn't already exist or if the storedValue is different
-        // This check is to prevent overwriting existing data with initial data on hydration
-        if (item === null || JSON.stringify(storedValue) !== item) {
-          window.localStorage.setItem(key, JSON.stringify(storedValue));
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  }, [key, storedValue, isClient]);
+    setStoredValue(readValue());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
-    if (isClient) {
-      try {
-        const item = window.localStorage.getItem(key);
-        if (item) {
-          setStoredValue(JSON.parse(item));
+    if (typeof window !== 'undefined') {
+        try {
+            window.localStorage.setItem(key, JSON.stringify(storedValue));
+        } catch (error) {
+            console.warn(`Error setting localStorage key “${key}”:`, error);
         }
-      } catch (error) {
-        console.log(error);
-      }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [key, isClient]);
+  }, [key, storedValue]);
 
 
   return [storedValue, setStoredValue];
