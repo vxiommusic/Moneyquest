@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
+import React, { useState } from "react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -28,7 +29,8 @@ import {
   RadioGroup,
   RadioGroupItem,
 } from "@/components/ui/radio-group";
-import { Calendar as CalendarIcon, Upload } from "lucide-react";
+import { Calendar as CalendarIcon, Upload, FileCheck2, X } from "lucide-react";
+import { CircularProgress } from "./ui/circular-progress";
 
 const formSchema = z.object({
   date: z.date({
@@ -45,6 +47,10 @@ const formSchema = z.object({
 });
 
 export function TradeForm() {
+  const [uploadProgress, setUploadProgress] = useState<number | null>(null);
+  const [fileName, setFileName] = useState<string | null>(null);
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -55,7 +61,7 @@ export function TradeForm() {
     },
   });
 
-  const { watch } = form;
+  const { watch, setValue } = form;
   const { positionType, entryPoint, exitPoint, volume } = watch();
 
   const calculateResult = () => {
@@ -71,6 +77,39 @@ export function TradeForm() {
   };
 
   const result = calculateResult();
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setValue('screenshot', file);
+      setFileName(file.name);
+      setUploadProgress(0);
+
+      // Simulate upload
+      const interval = setInterval(() => {
+        setUploadProgress(prev => {
+          if (prev === null) {
+            clearInterval(interval);
+            return null;
+          }
+          if (prev >= 100) {
+            clearInterval(interval);
+            return 100;
+          }
+          return prev + 10;
+        });
+      }, 200);
+    }
+  };
+
+  const handleRemoveFile = () => {
+    setValue('screenshot', null);
+    setFileName(null);
+    setUploadProgress(null);
+    if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+    }
+  };
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log({ ...values, result });
@@ -213,17 +252,33 @@ export function TradeForm() {
           <FormField
             control={form.control}
             name="screenshot"
-            render={({ field }) => (
+            render={() => (
               <FormItem>
                 <FormLabel>Загрузить Скриншот</FormLabel>
                 <FormControl>
-                    <Button asChild variant="outline" className="w-full">
-                        <label className="cursor-pointer">
-                            <Upload className="mr-2" />
-                            <span>Выберите файл</span>
-                            <Input type="file" className="sr-only" onChange={(e) => field.onChange(e.target.files)} />
-                        </label>
-                    </Button>
+                  <div className="flex items-center gap-4">
+                    {uploadProgress !== null && uploadProgress < 100 && (
+                      <CircularProgress value={uploadProgress} />
+                    )}
+                    {uploadProgress === 100 && (
+                      <div className="flex items-center gap-2 p-2 rounded-md bg-green-500/10 text-green-500 border border-green-500/20 w-full">
+                        <FileCheck2 className="h-5 w-5" />
+                        <span className="truncate flex-1">{fileName}</span>
+                        <Button variant="ghost" size="icon" className="h-6 w-6 text-red-500 hover:bg-red-500/10 hover:text-red-500" onClick={handleRemoveFile}>
+                           <X className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    )}
+                    {uploadProgress === null && (
+                      <Button asChild variant="outline" className="w-full">
+                          <label className="cursor-pointer">
+                              <Upload className="mr-2" />
+                              <span>Выберите файл</span>
+                              <Input ref={fileInputRef} type="file" className="sr-only" onChange={handleFileChange} accept="image/*" />
+                          </label>
+                      </Button>
+                    )}
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
