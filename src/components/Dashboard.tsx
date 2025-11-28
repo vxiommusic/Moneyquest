@@ -10,6 +10,7 @@ import { RewardsSection } from './RewardsSection';
 import { MotivationalPopup } from './MotivationalPopup';
 import { getMotivationalMessage } from '@/app/actions';
 import { isToday, isThisWeek, isThisMonth, parseISO } from 'date-fns';
+import { ClientCharacterCard } from './ClientCharacterCard';
 
 export function Dashboard() {
   const [user, setUser] = useLocalStorage<User>('questify-user', initialUser);
@@ -150,7 +151,7 @@ export function Dashboard() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <aside className="lg:col-span-1 space-y-6">
-          <CharacterCard user={user} floatingTexts={floatingTexts} setFloatingTexts={setFloatingTexts} />
+          <ClientCharacterCard user={user} floatingTexts={floatingTexts} setFloatingTexts={setFloatingTexts} />
           <RewardsSection rewards={rewards} onClaimReward={handleClaimReward} />
         </aside>
 
