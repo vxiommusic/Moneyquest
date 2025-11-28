@@ -116,7 +116,7 @@ export const initialRewards: Reward[] = [
   },
   {
     id: 'reward-weekly-1',
-    title: 'Воин недели',
+    title: '3 дня без нарушений',
     description: 'Выполните все еженедельные квесты.',
     type: 'weekly',
     xp: 100,
