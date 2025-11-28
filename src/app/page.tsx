@@ -1,9 +1,5 @@
-import { Dashboard } from '@/components/Dashboard';
+import QuestPage from './quest/page';
 
 export default function HomePage() {
-  return (
-    <main className="bg-background min-h-screen p-2 sm:p-4 lg:p-6">
-      <Dashboard />
-    </main>
-  );
+  return <QuestPage />;
 }

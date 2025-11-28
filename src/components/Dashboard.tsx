@@ -12,11 +12,11 @@ import { ClientRewardsSection } from './ClientRewardsSection';
 import { BattleChecklist } from './BattleChecklist';
 
 export function Dashboard() {
-  const [user, setUser] = useLocalStorage<User>('questify-user', initialUser);
-  const [tasks, setTasks] = useLocalStorage<Task[]>('questify-tasks', initialTasks);
-  const [rewards, setRewards] = useLocalStorage<Reward[]>('questify-rewards', initialRewards);
-  const [lastReset, setLastReset] = useLocalStorage<{ daily: string, weekly: string, monthly: string }>('questify-last-reset', { daily: '', weekly: '', monthly: '' });
-  const [hasBeenReset, setHasBeenReset] = useLocalStorage('questify-has-reset-v7', false);
+  const [user, setUser] = useLocalStorage<User>('moneyquest-user', initialUser);
+  const [tasks, setTasks] = useLocalStorage<Task[]>('moneyquest-tasks', initialTasks);
+  const [rewards, setRewards] = useLocalStorage<Reward[]>('moneyquest-rewards', initialRewards);
+  const [lastReset, setLastReset] = useLocalStorage<{ daily: string, weekly: string, monthly: string }>('moneyquest-last-reset', { daily: '', weekly: '', monthly: '' });
+  const [hasBeenReset, setHasBeenReset] = useLocalStorage('moneyquest-has-reset-v10', false);
 
   const [motivationalMessage, setMotivationalMessage] = useState('');
   const [floatingTexts, setFloatingTexts] = useState<FloatingText[]>([]);
