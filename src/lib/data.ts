@@ -8,9 +8,9 @@ export const initialUser: User = {
   name: 'Валериус',
   avatar: PlaceHolderImages.find(img => img.id === 'user-avatar')?.imageUrl || '',
   level: 1,
-  hp: 85,
+  hp: 100,
   maxHp: 100,
-  xp: 30,
+  xp: 0,
   xpToNextLevel: 100,
 };
 
