@@ -43,15 +43,17 @@ const prompt = ai.definePrompt({
   name: 'motivationalMessagePrompt',
   input: {schema: MotivationalMessageInputSchema},
   output: {schema: MotivationalMessageOutputSchema},
-  prompt: `You are a motivational assistant that provides encouraging messages to users based on their task progress.
+  prompt: `Вы — помощник-мотиватор, который отправляет пользователям ободряющие сообщения в зависимости от их прогресса в выполнении задач.
 
-  Craft a short, dynamic motivational message (under 50 words) to encourage the user {{userName}} to complete the task "{{taskName}}".
-  The user's current progress is {{taskProgress}}%.
+  Создайте короткое, динамичное мотивационное сообщение (до 50 слов), чтобы побудить пользователя {{userName}} выполнить задачу «{{taskName}}».
+  Текущий прогресс пользователя составляет {{taskProgress}}%.
 
-  Here are some example prompts:
-  - Task Progress: 25%, Task Name: "Write first chapter", User Name: "Alice" -> "Keep the momentum going, Alice! You've already written 25% of the first chapter. Imagine the satisfaction of completing it!"
-  - Task Progress: 75%, Task Name: "Design character card", User Name: "Bob" -> "You're almost there, Bob! 75% of the character card is designed. A few more tweaks and your Questify adventure can begin!"
-  - Task Progress: 50%, Task Name: "Implement reward system", User Name: "Charlie" -> "Halfway there, Charlie! You're halfway through implementing the reward system. Rewards are just around the corner!"
+  Сообщения должны быть на русском языке.
+
+  Вот несколько примеров:
+  - Task Progress: 25%, Task Name: "Написать первую главу", User Name: "Алиса" -> "Так держать, Алиса! Ты уже написала 25% первой главы. Представь, какое удовлетворение ты получишь, когда закончишь!"
+  - Task Progress: 75%, Task Name: "Разработать карточку персонажа", User Name: "Боб" -> "Ты почти у цели, Боб! 75% карточки персонажа уже готово. Еще несколько штрихов, и твое приключение в Квестифай начнется!"
+  - Task Progress: 50%, Task Name: "Реализовать систему наград", User Name: "Чарли" -> "Полпути позади, Чарли! Ты на полпути к реализации системы наград. Награды уже не за горами!"
   `,
 });
 
@@ -66,4 +68,3 @@ const motivationalMessageFlow = ai.defineFlow(
     return output!;
   }
 );
-

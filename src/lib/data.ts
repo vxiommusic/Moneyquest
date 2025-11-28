@@ -5,7 +5,7 @@ import { addDays, addWeeks, formatISO } from 'date-fns';
 const today = new Date();
 
 export const initialUser: User = {
-  name: 'Valerius',
+  name: 'Валериус',
   avatar: PlaceHolderImages.find(img => img.id === 'user-avatar')?.imageUrl || '',
   level: 1,
   hp: 85,
@@ -17,8 +17,8 @@ export const initialUser: User = {
 export const initialTasks: Task[] = [
   {
     id: '1',
-    title: 'Morning Run',
-    description: 'Complete a 30-minute run to start the day.',
+    title: 'Утренняя пробежка',
+    description: 'Совершите 30-минутную пробежку, чтобы начать день.',
     xp: 20,
     hpDamage: 5,
     dueDate: formatISO(today),
@@ -27,8 +27,8 @@ export const initialTasks: Task[] = [
   },
   {
     id: '2',
-    title: 'Read a Chapter',
-    description: 'Read one chapter of a book.',
+    title: 'Прочитать главу',
+    description: 'Прочитайте одну главу книги.',
     xp: 10,
     hpDamage: 5,
     dueDate: formatISO(today),
@@ -37,8 +37,8 @@ export const initialTasks: Task[] = [
   },
   {
     id: '3',
-    title: 'Weekly Project Sync',
-    description: 'Sync up with the team on the weekly project.',
+    title: 'Еженедельная синхронизация по проекту',
+    description: 'Синхронизируйтесь с командой по еженедельному проекту.',
     xp: 30,
     hpDamage: 10,
     dueDate: formatISO(addDays(today, 2)),
@@ -47,8 +47,8 @@ export const initialTasks: Task[] = [
   },
     {
     id: '4',
-    title: 'Grocery Shopping',
-    description: 'Buy groceries for the week.',
+    title: 'Поход за продуктами',
+    description: 'Купите продукты на неделю.',
     xp: 25,
     hpDamage: 0,
     dueDate: formatISO(addWeeks(today, 1)),
@@ -57,8 +57,8 @@ export const initialTasks: Task[] = [
   },
   {
     id: '5',
-    title: 'Design New Character',
-    description: 'Sketch and finalize the new game character design.',
+    title: 'Разработать нового персонажа',
+    description: 'Нарисуйте и завершите дизайн нового игрового персонажа.',
     xp: 150,
     hpDamage: 0,
     dueDate: formatISO(addDays(today, 10)),
@@ -67,8 +67,8 @@ export const initialTasks: Task[] = [
   },
    {
     id: '6',
-    title: 'Monthly Report',
-    description: 'Prepare and submit the monthly performance report.',
+    title: 'Ежемесячный отчет',
+    description: 'Подготовьте и отправьте ежемесячный отчет о производительности.',
     xp: 100,
     hpDamage: 15,
     dueDate: formatISO(addDays(today, 20)),
@@ -80,8 +80,8 @@ export const initialTasks: Task[] = [
 export const initialRewards: Reward[] = [
   {
     id: 'reward-daily-1',
-    title: 'Daily Check-in',
-    description: 'Log in and claim your daily reward.',
+    title: 'Ежедневный вход',
+    description: 'Войдите и получите свою ежедневную награду.',
     type: 'daily',
     xp: 10,
     claimed: false,
@@ -89,8 +89,8 @@ export const initialRewards: Reward[] = [
   },
   {
     id: 'reward-weekly-1',
-    title: 'Weekly Warrior',
-    description: 'Complete all weekly quests.',
+    title: 'Воин недели',
+    description: 'Выполните все еженедельные квесты.',
     type: 'weekly',
     xp: 100,
     claimed: false,
@@ -98,8 +98,8 @@ export const initialRewards: Reward[] = [
   },
   {
     id: 'reward-monthly-1',
-    title: 'Month of Mastery',
-    description: 'Complete all monthly quests.',
+    title: 'Мастер месяца',
+    description: 'Выполните все ежемесячные квесты.',
     type: 'monthly',
     xp: 500,
     claimed: false,

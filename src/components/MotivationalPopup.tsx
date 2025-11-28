@@ -19,7 +19,7 @@ export function MotivationalPopup({ message }: MotivationalPopupProps) {
         <CardContent className="p-4 flex items-start gap-3">
           <Sparkles className="h-6 w-6 text-accent mt-1" />
           <div>
-            <h4 className="font-bold">A word of encouragement!</h4>
+            <h4 className="font-bold">Слово поддержки!</h4>
             <p className="text-sm opacity-90">{message}</p>
           </div>
         </CardContent>

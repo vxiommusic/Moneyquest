@@ -34,7 +34,7 @@ export function CharacterCard({ user, floatingTexts, setFloatingTexts }: Charact
          <div className="bg-primary/20 p-6 flex flex-col items-center text-center relative">
           <div className="absolute top-4 right-4 flex items-center gap-2 bg-primary/80 text-primary-foreground px-3 py-1 rounded-full text-sm font-bold">
             <Shield size={16} />
-            <span>Level {user.level}</span>
+            <span>Уровень {user.level}</span>
           </div>
           <Avatar className="w-24 h-24 border-4 border-background shadow-md mb-3">
             <AvatarImage src={user.avatar} alt={user.name} data-ai-hint="fantasy character" />
@@ -58,7 +58,7 @@ export function CharacterCard({ user, floatingTexts, setFloatingTexts }: Charact
           <div className="flex justify-between items-center text-sm font-medium">
             <div className="flex items-center gap-2 text-red-500">
               <Heart size={16} />
-              <span>HP</span>
+              <span>ОЗ</span>
             </div>
             <span>{user.hp} / {user.maxHp}</span>
           </div>
@@ -69,7 +69,7 @@ export function CharacterCard({ user, floatingTexts, setFloatingTexts }: Charact
           <div className="flex justify-between items-center text-sm font-medium">
             <div className="flex items-center gap-2 text-accent">
               <Star size={16} />
-              <span>XP</span>
+              <span>ОП</span>
             </div>
             <span>{user.xp} / {user.xpToNextLevel}</span>
           </div>

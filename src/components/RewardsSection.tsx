@@ -33,7 +33,7 @@ const RewardCard = ({ reward, onClaimReward }: { reward: Reward, onClaimReward: 
         <div className="flex items-center gap-4 mt-4 sm:mt-0">
           <Badge variant="secondary" className="bg-accent/20 text-accent-foreground border-accent/30">
             <Star size={12} className="mr-1 text-accent" />
-            {reward.xp} XP
+            {reward.xp} ОП
           </Badge>
           <Button
             onClick={() => onClaimReward(reward.id)}
@@ -43,9 +43,9 @@ const RewardCard = ({ reward, onClaimReward }: { reward: Reward, onClaimReward: 
           >
             {reward.claimed ? (
               <>
-                <CheckCircle2 size={16} className="mr-2" /> Claimed
+                <CheckCircle2 size={16} className="mr-2" /> Получено
               </>
-            ) : "Claim"}
+            ) : "Получить"}
           </Button>
         </div>
       </Card>
@@ -71,16 +71,16 @@ export function RewardsSection({ rewards, onClaimReward }: RewardsSectionProps) 
       <CardHeader>
         <CardTitle className="text-2xl font-bold flex items-center gap-2">
           <Gift size={24} className="text-primary" />
-          Rewards
+          Награды
         </CardTitle>
-        <CardDescription>Claim rewards for your hard work and dedication.</CardDescription>
+        <CardDescription>Получайте награды за свой упорный труд и преданность делу.</CardDescription>
       </CardHeader>
       <CardContent>
         <Tabs defaultValue="daily">
           <TabsList className="grid w-full grid-cols-3 mb-4">
-            <TabsTrigger value="daily">Daily</TabsTrigger>
-            <TabsTrigger value="weekly">Weekly</TabsTrigger>
-            <TabsTrigger value="monthly">Monthly</TabsTrigger>
+            <TabsTrigger value="daily">Ежедневные</TabsTrigger>
+            <TabsTrigger value="weekly">Еженедельные</TabsTrigger>
+            <TabsTrigger value="monthly">Ежемесячные</TabsTrigger>
           </TabsList>
           <TabsContent value="daily">{renderRewardList(dailyRewards)}</TabsContent>
           <TabsContent value="weekly">{renderRewardList(weeklyRewards)}</TabsContent>

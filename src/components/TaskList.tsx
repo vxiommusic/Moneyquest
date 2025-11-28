@@ -25,7 +25,7 @@ const TaskCard = ({ task, onCompleteTask }: { task: Task, onCompleteTask: (id: s
         checked={task.completed}
         onCheckedChange={() => !task.completed && onCompleteTask(task.id)}
         className="mt-1"
-        aria-label={`Mark ${task.title} as complete`}
+        aria-label={`Отметить ${task.title} как выполненное`}
       />
       <div className="flex-1 grid gap-1.5">
         <CardTitle className={`text-lg ${task.completed ? 'line-through text-muted-foreground' : ''}`}>
@@ -39,17 +39,17 @@ const TaskCard = ({ task, onCompleteTask }: { task: Task, onCompleteTask: (id: s
     <CardFooter className="flex justify-between items-center p-4 pt-0">
       <div className="flex items-center gap-1 text-xs text-muted-foreground">
         <Calendar size={14} />
-        <span>Due: {format(parseISO(task.dueDate), 'MMM d, yyyy')}</span>
+        <span>Срок: {format(parseISO(task.dueDate), 'MMM d, yyyy')}</span>
       </div>
       <div className="flex gap-2">
         <Badge variant="secondary" className="bg-accent/20 text-accent-foreground border-accent/30">
           <Star size={12} className="mr-1 text-accent" />
-          {task.xp} XP
+          {task.xp} ОП
         </Badge>
         {task.hpDamage > 0 && (
           <Badge variant="destructive" className="bg-red-500/10 text-red-700 border-red-500/20 dark:text-red-400">
             <Heart size={12} className="mr-1 text-red-500" />
-            -{task.hpDamage} HP
+            -{task.hpDamage} ОЗ
           </Badge>
         )}
       </div>
@@ -84,30 +84,30 @@ export function TaskList({ tasks, onCompleteTask, onAddTask }: TaskListProps) {
     <Card className="shadow-lg h-full">
       <CardHeader>
         <div className="flex justify-between items-center">
-          <CardTitle className="text-2xl font-bold">Your Quests</CardTitle>
+          <CardTitle className="text-2xl font-bold">Ваши квесты</CardTitle>
           <AddTaskDialog onAddTask={onAddTask}>
             <Button>
               <PlusCircle size={18} className="mr-2" />
-              Add Quest
+              Добавить квест
             </Button>
           </AddTaskDialog>
         </div>
-        <CardDescription>Complete quests to earn XP and level up!</CardDescription>
+        <CardDescription>Выполняйте квесты, чтобы заработать ОП и повысить уровень!</CardDescription>
       </CardHeader>
       <CardContent>
         <Tabs defaultValue="one-time">
           <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 mb-4">
-            <TabsTrigger value="one-time">Main</TabsTrigger>
-            <TabsTrigger value="daily">Daily</TabsTrigger>
-            <TabsTrigger value="weekly">Weekly</TabsTrigger>
-            <TabsTrigger value="monthly">Monthly</TabsTrigger>
-            <TabsTrigger value="completed">Completed</TabsTrigger>
+            <TabsTrigger value="one-time">Основные</TabsTrigger>
+            <TabsTrigger value="daily">Ежедневные</TabsTrigger>
+            <TabsTrigger value="weekly">Еженедельные</TabsTrigger>
+            <TabsTrigger value="monthly">Ежемесячные</TabsTrigger>
+            <TabsTrigger value="completed">Выполненные</TabsTrigger>
           </TabsList>
-          <TabsContent value="one-time">{renderTaskList(oneTimeQuests, "No main quests. Time to create an adventure!")}</TabsContent>
-          <TabsContent value="daily">{renderTaskList(dailyQuests, "No daily quests. Add some to build your streak!")}</TabsContent>
-          <TabsContent value="weekly">{renderTaskList(weeklyQuests, "No weekly quests. Plan your week for great rewards!")}</TabsContent>
-          <TabsContent value="monthly">{renderTaskList(monthlyQuests, "No monthly quests. Set a big goal for the month!")}</TabsContent>
-          <TabsContent value="completed">{renderTaskList(completedTasks, "No quests completed yet. Finish a task to see it here!")}</TabsContent>
+          <TabsContent value="one-time">{renderTaskList(oneTimeQuests, "Нет основных квестов. Время создать приключение!")}</TabsContent>
+          <TabsContent value="daily">{renderTaskList(dailyQuests, "Нет ежедневных квестов. Добавьте несколько, чтобы создать серию!")}</TabsContent>
+          <TabsContent value="weekly">{renderTaskList(weeklyQuests, "Нет еженедельных квестов. Спланируйте свою неделю для получения отличных наград!")}</TabsContent>
+          <TabsContent value="monthly">{renderTaskList(monthlyQuests, "Нет ежемесячных квестов. Поставьте большую цель на месяц!")}</TabsContent>
+          <TabsContent value="completed">{renderTaskList(completedTasks, "Пока нет выполненных квестов. Выполните задание, чтобы увидеть его здесь!")}</TabsContent>
         </Tabs>
       </CardContent>
     </Card>

@@ -81,7 +81,7 @@ export function Dashboard() {
 
   const handleLevelUp = (currentUser: User, currentXp: number): User => {
     const newLevel = currentUser.level + 1;
-    addFloatingText('Level Up!', 'text-yellow-400');
+    addFloatingText('Новый уровень!', 'text-yellow-400');
     return {
       ...currentUser,
       level: newLevel,
@@ -98,7 +98,7 @@ export function Dashboard() {
     setTasks(tasks.map(t => (t.id === taskId ? { ...t, completed: true } : t)));
 
     let newXp = user.xp + task.xp;
-    addFloatingText(`+${task.xp} XP`, 'text-accent');
+    addFloatingText(`+${task.xp} ОП`, 'text-accent');
     
     let updatedUser = { ...user };
 
@@ -130,7 +130,7 @@ export function Dashboard() {
     setRewards(rewards.map(r => r.id === rewardId ? {...r, claimed: true} : r));
     
     let newXp = user.xp + reward.xp;
-    addFloatingText(`+${reward.xp} XP`, 'text-accent');
+    addFloatingText(`+${reward.xp} ОП`, 'text-accent');
     
     let updatedUser = { ...user };
     if (newXp >= user.xpToNextLevel) {
@@ -144,8 +144,8 @@ export function Dashboard() {
   return (
     <div className="w-full max-w-7xl mx-auto">
       <header className="mb-6">
-        <h1 className="text-4xl font-bold text-primary tracking-tighter">Questify</h1>
-        <p className="text-muted-foreground">Your epic journey to productivity begins now!</p>
+        <h1 className="text-4xl font-bold text-primary tracking-tighter">Квестифай</h1>
+        <p className="text-muted-foreground">Ваше эпическое путешествие к продуктивности начинается сейчас!</p>
       </header>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

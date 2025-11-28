@@ -44,11 +44,11 @@ import { cn } from "@/lib/utils"
 import type { Task } from "@/lib/types"
 
 const formSchema = z.object({
-  title: z.string().min(3, "Title must be at least 3 characters"),
+  title: z.string().min(3, "Название должно содержать не менее 3 символов"),
   description: z.string().optional(),
-  xp: z.coerce.number().min(0, "XP must be non-negative"),
-  hpDamage: z.coerce.number().min(0, "HP Damage must be non-negative"),
-  dueDate: z.date({ required_error: "A due date is required." }),
+  xp: z.coerce.number().min(0, "ОП должен быть неотрицательным"),
+  hpDamage: z.coerce.number().min(0, "Урон ОЗ должен быть неотрицательным"),
+  dueDate: z.date({ required_error: "Требуется указать срок выполнения." }),
   type: z.enum(["one-time", "daily", "weekly", "monthly"]),
 })
 
@@ -84,9 +84,9 @@ export function AddTaskDialog({ children, onAddTask }: AddTaskDialogProps) {
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[480px]">
         <DialogHeader>
-          <DialogTitle>Create a New Quest</DialogTitle>
+          <DialogTitle>Создать новый квест</DialogTitle>
           <DialogDescription>
-            Add a new task to your quest log. Fill in the details below.
+            Добавьте новую задачу в свой журнал квестов. Заполните детали ниже.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -96,9 +96,9 @@ export function AddTaskDialog({ children, onAddTask }: AddTaskDialogProps) {
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Quest Title</FormLabel>
+                  <FormLabel>Название квеста</FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g., Defeat the Procrastination Dragon" {...field} />
+                    <Input placeholder="например, Победить Дракона Прокрастинации" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -109,9 +109,9 @@ export function AddTaskDialog({ children, onAddTask }: AddTaskDialogProps) {
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel>Описание</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="A brief description of your quest." {...field} />
+                    <Textarea placeholder="Краткое описание вашего квеста." {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -123,7 +123,7 @@ export function AddTaskDialog({ children, onAddTask }: AddTaskDialogProps) {
                 name="xp"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>XP Reward</FormLabel>
+                    <FormLabel>Награда ОП</FormLabel>
                     <FormControl>
                       <Input type="number" {...field} />
                     </FormControl>
@@ -136,7 +136,7 @@ export function AddTaskDialog({ children, onAddTask }: AddTaskDialogProps) {
                 name="hpDamage"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>HP Damage (if failed)</FormLabel>
+                    <FormLabel>Урон ОЗ (в случае провала)</FormLabel>
                     <FormControl>
                       <Input type="number" {...field} />
                     </FormControl>
@@ -151,7 +151,7 @@ export function AddTaskDialog({ children, onAddTask }: AddTaskDialogProps) {
                 name="dueDate"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Due Date</FormLabel>
+                    <FormLabel>Срок выполнения</FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
@@ -165,7 +165,7 @@ export function AddTaskDialog({ children, onAddTask }: AddTaskDialogProps) {
                             {field.value ? (
                               format(field.value, "PPP")
                             ) : (
-                              <span>Pick a date</span>
+                              <span>Выберите дату</span>
                             )}
                             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                           </Button>
@@ -190,18 +190,18 @@ export function AddTaskDialog({ children, onAddTask }: AddTaskDialogProps) {
                 name="type"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Quest Type</FormLabel>
+                    <FormLabel>Тип квеста</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select quest type" />
+                          <SelectValue placeholder="Выберите тип квеста" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="one-time">One-Time</SelectItem>
-                        <SelectItem value="daily">Daily</SelectItem>
-                        <SelectItem value="weekly">Weekly</SelectItem>
-                        <SelectItem value="monthly">Monthly</SelectItem>
+                        <SelectItem value="one-time">Разовый</SelectItem>
+                        <SelectItem value="daily">Ежедневный</SelectItem>
+                        <SelectItem value="weekly">Еженедельный</SelectItem>
+                        <SelectItem value="monthly">Ежемесячный</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -212,7 +212,7 @@ export function AddTaskDialog({ children, onAddTask }: AddTaskDialogProps) {
             <DialogFooter>
               <Button type="submit">
                 <PlusCircle size={18} className="mr-2" />
-                Add Quest
+                Добавить квест
               </Button>
             </DialogFooter>
           </form>

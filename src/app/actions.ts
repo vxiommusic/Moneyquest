@@ -16,6 +16,6 @@ export async function getMotivationalMessage(taskName: string, userName: string)
   } catch (error) {
     console.error('Error getting motivational message:', error);
     // Return a default encouraging message on error
-    return "Great job! Keep pushing forward!";
+    return "Отличная работа! Продолжайте в том же духе!";
   }
 }
