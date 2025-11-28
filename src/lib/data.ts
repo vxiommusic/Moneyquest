@@ -1,8 +1,8 @@
 import type { User, Task, Reward } from './types';
 import { PlaceHolderImages } from './placeholder-images';
-import { addDays, addWeeks, formatISO } from 'date-fns';
+import { addDays, addWeeks, formatISO, startOfDay } from 'date-fns';
 
-const today = new Date();
+const today = startOfDay(new Date());
 
 export const initialUser: User = {
   name: 'Валериус',

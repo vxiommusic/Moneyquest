@@ -4,13 +4,12 @@ import React, { useState, useEffect, useCallback } from 'react';
 import type { User, Task, Reward, FloatingText } from '@/lib/types';
 import { initialUser, initialTasks, initialRewards } from '@/lib/data';
 import useLocalStorage from '@/hooks/use-local-storage';
-import { CharacterCard } from './CharacterCard';
 import { TaskList } from './TaskList';
-import { RewardsSection } from './RewardsSection';
 import { MotivationalPopup } from './MotivationalPopup';
 import { getMotivationalMessage } from '@/app/actions';
-import { isToday, isThisWeek, isThisMonth, parseISO } from 'date-fns';
+import { isThisWeek, isThisMonth, parseISO } from 'date-fns';
 import { ClientCharacterCard } from './ClientCharacterCard';
+import { ClientRewardsSection } from './ClientRewardsSection';
 
 export function Dashboard() {
   const [user, setUser] = useLocalStorage<User>('questify-user', initialUser);
@@ -29,7 +28,6 @@ export function Dashboard() {
     const today = new Date();
     let madeChanges = false;
     const newTasks = tasks.map(task => {
-      const taskDate = parseISO(task.dueDate);
       if (task.type === 'daily' && lastReset.daily !== today.toDateString()) {
         task.completed = false;
         madeChanges = true;
@@ -73,6 +71,10 @@ export function Dashboard() {
         }
         if (r.type === 'monthly') {
           return { ...r, claimable: monthlyTasks.length === 0 };
+        }
+        // Daily rewards are claimable by default, let's make sure that's set
+        if (r.type === 'daily') {
+            return { ...r, claimable: true };
         }
         return r;
       }));
@@ -152,7 +154,7 @@ export function Dashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <aside className="lg:col-span-1 space-y-6">
           <ClientCharacterCard user={user} floatingTexts={floatingTexts} setFloatingTexts={setFloatingTexts} />
-          <RewardsSection rewards={rewards} onClaimReward={handleClaimReward} />
+          <ClientRewardsSection rewards={rewards} onClaimReward={handleClaimReward} />
         </aside>
 
         <section className="lg:col-span-2">
