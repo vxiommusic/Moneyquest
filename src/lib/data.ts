@@ -96,7 +96,7 @@ export const initialRewards: Reward[] = [
     claimed: false,
     claimable: true
   },
-    {
+  {
     id: 'reward-daily-3',
     title: 'День без эмоциональных входов',
     description: 'МИНИ-КВЕСТЫ НА ДЕНЬ',
@@ -105,7 +105,7 @@ export const initialRewards: Reward[] = [
     claimed: false,
     claimable: true
   },
-    {
+  {
     id: 'reward-daily-4',
     title: 'Идеальный план сделки',
     description: 'МИНИ-КВЕСТЫ НА ДЕНЬ',
@@ -114,7 +114,7 @@ export const initialRewards: Reward[] = [
     claimed: false,
     claimable: true
   },
-    {
+  {
     id: 'reward-daily-5',
     title: 'Анализ ошибок вечером',
     description: 'МИНИ-КВЕСТЫ НА ДЕНЬ',
