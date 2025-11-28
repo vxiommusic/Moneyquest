@@ -84,18 +84,25 @@ export function TradeHistoryTable({ trades, onDeleteTrade }: TradeHistoryTablePr
               <TableCell className="text-right">
                 <div className="flex items-center justify-end gap-2">
                     {trade.comment && (
-                         <TooltipProvider>
-                            <Tooltip>
-                                <TooltipTrigger asChild>
-                                    <Button variant="ghost" size="icon" className="cursor-default">
-                                        <MessageSquare className="h-4 w-4 text-muted-foreground" />
-                                    </Button>
-                                </TooltipTrigger>
-                                <TooltipContent side="left" className="max-w-xs">
-                                    <p>{trade.comment}</p>
-                                </TooltipContent>
-                            </Tooltip>
-                        </TooltipProvider>
+                      <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                              <Button variant="ghost" size="icon">
+                                  <MessageSquare className="h-4 w-4 text-muted-foreground" />
+                              </Button>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                              <AlertDialogHeader>
+                                  <AlertDialogTitle>Комментарий к сделке</AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                      {trade.instrument} - {format(new Date(trade.date), 'PPP', { locale: ru })}
+                                  </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <p className="py-4">{trade.comment}</p>
+                              <AlertDialogFooter>
+                                  <AlertDialogCancel>Закрыть</AlertDialogCancel>
+                              </AlertDialogFooter>
+                          </AlertDialogContent>
+                      </AlertDialog>
                     )}
                     {trade.screenshot && (
                         <TooltipProvider>
