@@ -47,4 +47,5 @@ export type Trade = {
   exitPoint: number;
   result: number;
   screenshot?: string;
+  comment?: string;
 };

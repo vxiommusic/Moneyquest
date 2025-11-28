@@ -27,7 +27,7 @@ import {
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { cn } from '@/lib/utils';
-import { ArrowUpRight, ArrowDownRight, Image as ImageIcon, Trash2 } from 'lucide-react';
+import { ArrowUpRight, ArrowDownRight, Image as ImageIcon, Trash2, MessageSquare } from 'lucide-react';
 import {
   Tooltip,
   TooltipContent,
@@ -83,6 +83,20 @@ export function TradeHistoryTable({ trades, onDeleteTrade }: TradeHistoryTablePr
               </TableCell>
               <TableCell className="text-right">
                 <div className="flex items-center justify-end gap-2">
+                    {trade.comment && (
+                         <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button variant="ghost" size="icon" className="cursor-default">
+                                        <MessageSquare className="h-4 w-4 text-muted-foreground" />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent side="left" className="max-w-xs">
+                                    <p>{trade.comment}</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                    )}
                     {trade.screenshot && (
                         <TooltipProvider>
                             <Tooltip>

@@ -33,6 +33,7 @@ import {
 import { Calendar as CalendarIcon, Upload, FileCheck2, X } from "lucide-react";
 import { CircularProgress } from "./ui/circular-progress";
 import { useToast } from "@/hooks/use-toast";
+import { Textarea } from "./ui/textarea";
 
 const formSchema = z.object({
   date: z.date({
@@ -46,6 +47,7 @@ const formSchema = z.object({
   entryPoint: z.coerce.number().positive("Точка входа должна быть положительным числом."),
   exitPoint: z.coerce.number().positive("Точка выхода должна быть положительным числом."),
   screenshot: z.any().optional(),
+  comment: z.string().optional(),
 });
 
 type TradeFormValues = z.infer<typeof formSchema>;
@@ -75,7 +77,8 @@ export function TradeForm({ onSaveTrade }: TradeFormProps) {
     entryPoint: NaN,
     exitPoint: NaN,
     date: new Date(),
-    positionType: "long"
+    positionType: "long",
+    comment: "",
   };
 
   const form = useForm<TradeFormValues>({
@@ -350,6 +353,25 @@ export function TradeForm({ onSaveTrade }: TradeFormProps) {
             </FormDescription>
           </FormItem>
 
+          <div className="md:col-span-2">
+            <FormField
+              control={form.control}
+              name="comment"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Комментарий</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Ваши мысли о сделке, анализ, эмоции..."
+                      className="resize-none"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
         </div>
         <Button type="submit">Сохранить сделку</Button>
       </form>
