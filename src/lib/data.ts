@@ -88,6 +88,42 @@ export const initialRewards: Reward[] = [
     claimable: true
   },
   {
+    id: 'reward-daily-2',
+    title: '3 сделки без нарушений',
+    description: 'МИНИ-КВЕСТЫ НА ДЕНЬ',
+    type: 'daily',
+    xp: 40,
+    claimed: false,
+    claimable: true
+  },
+    {
+    id: 'reward-daily-3',
+    title: 'День без эмоциональных входов',
+    description: 'МИНИ-КВЕСТЫ НА ДЕНЬ',
+    type: 'daily',
+    xp: 20,
+    claimed: false,
+    claimable: true
+  },
+    {
+    id: 'reward-daily-4',
+    title: 'Идеальный план сделки',
+    description: 'МИНИ-КВЕСТЫ НА ДЕНЬ',
+    type: 'daily',
+    xp: 15,
+    claimed: false,
+    claimable: true
+  },
+    {
+    id: 'reward-daily-5',
+    title: 'Анализ ошибок вечером',
+    description: 'МИНИ-КВЕСТЫ НА ДЕНЬ',
+    type: 'daily',
+    xp: 20,
+    claimed: false,
+    claimable: true
+  },
+  {
     id: 'reward-weekly-1',
     title: 'Воин недели',
     description: 'Выполните все еженедельные квесты.',
