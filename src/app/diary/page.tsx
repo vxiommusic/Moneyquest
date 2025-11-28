@@ -7,14 +7,24 @@ export default function DiaryPage() {
         <h1 className="text-4xl font-bold text-primary tracking-tighter">Дневник</h1>
         <p className="text-muted-foreground">Записывайте свои мысли и анализируйте сделки.</p>
       </header>
-      <Card>
-        <CardHeader>
-          <CardTitle>Добро пожаловать в Дневник!</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p>Этот раздел находится в разработке. Здесь вы сможете вести журнал своих сделок и мыслей.</p>
-        </CardContent>
-      </Card>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle>Информация о сделке</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>Здесь будет форма для ввода информации о сделке.</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>История сделок</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>Здесь будет отображаться история ваших сделок.</p>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
